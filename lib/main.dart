@@ -9,10 +9,10 @@ import 'package:myshop_mobx/screens/product_detail_screen.dart';
 import 'package:myshop_mobx/screens/products_overview_screen.dart';
 import 'package:myshop_mobx/screens/splash_screen.dart';
 import 'package:myshop_mobx/screens/user_products_screen.dart';
-import 'package:myshop_mobx/store/auth.dart';
-import 'package:myshop_mobx/store/carts.dart';
-import 'package:myshop_mobx/store/orders.dart';
-import 'package:myshop_mobx/store/products.dart';
+import 'package:myshop_mobx/stores/auth.dart';
+import 'package:myshop_mobx/stores/cart.dart';
+import 'package:myshop_mobx/stores/orders.dart';
+import 'package:myshop_mobx/stores/products.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider(builder: (_) => Auth()),
         Provider(builder: (_) => Products()),
-        Provider(builder: (_) => Carts()),
+        Provider(builder: (_) => Cart()),
         Provider(builder: (_) => Orders()),
       ],
       child: Observer(

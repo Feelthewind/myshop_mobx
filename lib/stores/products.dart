@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/locator.dart';
 import 'package:myshop_mobx/services/product_service.dart';
-import 'package:myshop_mobx/store/product.dart';
+import 'package:myshop_mobx/stores/product.dart';
 
 part 'products.g.dart';
 
@@ -46,6 +46,10 @@ abstract class _Products with Store {
       fetchProductsFuture = ObservableFuture(future);
 
       final result = await future;
+
+      if (result == null) {
+        return;
+      }
 
       products = ObservableList.of(result);
     } catch (error) {

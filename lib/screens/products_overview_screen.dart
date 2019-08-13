@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:myshop_mobx/screens/cart_screen.dart';
-import 'package:myshop_mobx/store/carts.dart';
-import 'package:myshop_mobx/store/products.dart';
+import 'package:myshop_mobx/stores/cart.dart';
+import 'package:myshop_mobx/stores/products.dart';
 import 'package:myshop_mobx/widgets/app_drawer.dart';
 import 'package:myshop_mobx/widgets/badge.dart';
 import 'package:myshop_mobx/widgets/products_grid.dart';
@@ -17,8 +17,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   void initState() {
     super.initState();
-    final list = Provider.of<Products>(context, listen: false);
-    list.fetchProducts();
+    final products = Provider.of<Products>(context, listen: false);
+    products.fetchProducts();
   }
 
   @override
@@ -29,7 +29,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           Observer(
             builder: (ctx) {
-              final cart = Provider.of<Carts>(ctx);
+              final cart = Provider.of<Cart>(ctx);
               return Badge(
                 child: IconButton(
                   icon: Icon(

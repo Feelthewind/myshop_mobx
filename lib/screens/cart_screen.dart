@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshop_mobx/store/carts.dart';
-import 'package:myshop_mobx/store/orders.dart';
+import 'package:myshop_mobx/stores/cart.dart';
+import 'package:myshop_mobx/stores/orders.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/cart_item.dart' as ci;
@@ -10,7 +10,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Carts>(context);
+    final cart = Provider.of<Cart>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +66,7 @@ class OrderButton extends StatefulWidget {
     @required this.cart,
   }) : super(key: key);
 
-  final Carts cart;
+  final Cart cart;
 
   @override
   _OrderButtonState createState() => _OrderButtonState();

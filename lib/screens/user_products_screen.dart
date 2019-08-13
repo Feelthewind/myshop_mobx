@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:myshop_mobx/screens/edit_product_screen.dart';
-import 'package:myshop_mobx/store/products.dart';
+import 'package:myshop_mobx/stores/products.dart';
 import 'package:myshop_mobx/widgets/app_drawer.dart';
 import 'package:myshop_mobx/widgets/user_product_item.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class UserProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<Products>(context);
+    final productsStore = Provider.of<Products>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,10 +43,10 @@ class UserProductsScreen extends StatelessWidget {
                       builder: (ctx) => Padding(
                         padding: const EdgeInsets.all(8),
                         child: ListView.builder(
-                          itemCount: store.products.length,
+                          itemCount: productsStore.products.length,
                           itemBuilder: (_, i) => Column(
                             children: <Widget>[
-                              UserProductItem(store.products[i]),
+                              UserProductItem(productsStore.products[i]),
                               Divider(),
                             ],
                           ),

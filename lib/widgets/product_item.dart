@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:myshop_mobx/screens/product_detail_screen.dart';
-import 'package:myshop_mobx/store/carts.dart';
-import 'package:myshop_mobx/store/product.dart';
+import 'package:myshop_mobx/stores/cart.dart';
+import 'package:myshop_mobx/stores/product.dart';
 import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
@@ -61,7 +61,7 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
-              final cart = Provider.of<Carts>(context);
+              final cart = Provider.of<Cart>(context);
               cart.addItem(product.id, product.price, product.title);
             },
             color: Theme.of(context).accentColor,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myshop_mobx/screens/order_screen.dart';
 import 'package:myshop_mobx/screens/user_products_screen.dart';
-import 'package:myshop_mobx/store/auth.dart';
+import 'package:myshop_mobx/stores/auth.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {

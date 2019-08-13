@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:myshop_mobx/store/product.dart';
+import 'package:myshop_mobx/stores/product.dart';
 
 class ProductService {
   var url = 'https://flutter-update-396ab.firebaseio.com/products.json';

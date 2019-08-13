@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:myshop_mobx/store/orders.dart';
+import 'package:myshop_mobx/stores/orders.dart';
 import 'package:myshop_mobx/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/order_item.dart' as oi;
+import '../widgets/order_item.dart';
 
 class OrderScreen extends StatefulWidget {
   static const routeName = '/orders';
@@ -37,7 +37,7 @@ class _OrderScreenState extends State<OrderScreen> {
             return Observer(
               builder: (ctx) => ListView.builder(
                 itemCount: store.orders.length,
-                itemBuilder: (ctx, i) => oi.OrderItem(store.orders[i]),
+                itemBuilder: (ctx, i) => OrderItem(store.orders[i]),
               ),
             );
           }

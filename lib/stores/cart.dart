@@ -1,11 +1,11 @@
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/models/cart_model.dart';
 
-part 'carts.g.dart';
+part 'cart.g.dart';
 
-class Carts = _Carts with _$Carts;
+class Cart = _Cart with _$Cart;
 
-abstract class _Carts with Store {
+abstract class _Cart with Store {
   @observable
   ObservableMap<String, CartModel> items = ObservableMap();
 

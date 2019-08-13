@@ -17,6 +17,9 @@ abstract class _Orders with Store {
   Future<void> fetchAndSetOrders() async {
     orders = ObservableList();
     final extractedData = await orderService.fetch();
+    if (extractedData == null) {
+      return;
+    }
     extractedData.forEach((orderId, orderData) {
       orders.add(
         OrderModel(
