@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:myshop_mobx/locator.dart';
-import 'package:myshop_mobx/screens/auth_screen.dart';
-import 'package:myshop_mobx/screens/cart_screen.dart';
-import 'package:myshop_mobx/screens/edit_product_screen.dart';
-import 'package:myshop_mobx/screens/order_screen.dart';
-import 'package:myshop_mobx/screens/product_detail_screen.dart';
-import 'package:myshop_mobx/screens/products_overview_screen.dart';
-import 'package:myshop_mobx/screens/splash_screen.dart';
-import 'package:myshop_mobx/screens/user_products_screen.dart';
+import 'package:myshop_mobx/screens/auth.dart';
+import 'package:myshop_mobx/screens/cart.dart';
+import 'package:myshop_mobx/screens/edit_product.dart';
+import 'package:myshop_mobx/screens/orders.dart';
+import 'package:myshop_mobx/screens/product_detail.dart';
+import 'package:myshop_mobx/screens/products_overview.dart';
+import 'package:myshop_mobx/screens/splash.dart';
+import 'package:myshop_mobx/screens/user_products.dart';
 import 'package:myshop_mobx/stores/auth.dart';
 import 'package:myshop_mobx/stores/cart.dart';
 import 'package:myshop_mobx/stores/orders.dart';
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             routes: {
               ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
               CartScreen.routeName: (ctx) => CartScreen(),
-              OrderScreen.routeName: (ctx) => OrderScreen(),
+              OrdersScreen.routeName: (ctx) => OrdersScreen(),
               UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
               EditProductScreen.routeName: (ctx) => EditProductScreen(),
             },

@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/locator.dart';
-import 'package:myshop_mobx/services/product_service.dart';
+import 'package:myshop_mobx/services/product.dart';
 import 'package:myshop_mobx/stores/product.dart';
 
 part 'products.g.dart';

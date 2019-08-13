@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:myshop_mobx/screens/edit_product_screen.dart';
+import 'package:myshop_mobx/screens/edit_product.dart';
 import 'package:myshop_mobx/stores/products.dart';
 import 'package:myshop_mobx/widgets/app_drawer.dart';
 import 'package:myshop_mobx/widgets/user_product_item.dart';

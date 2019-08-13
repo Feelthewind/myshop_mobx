@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myshop_mobx/screens/order_screen.dart';
-import 'package:myshop_mobx/screens/user_products_screen.dart';
+import 'package:myshop_mobx/screens/orders.dart';
+import 'package:myshop_mobx/screens/user_products.dart';
 import 'package:myshop_mobx/stores/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               // Navigator.of(context)
               //     .pushReplacementNamed(OrdersScreen.routeName);
-              Navigator.of(context).pushReplacementNamed(OrderScreen.routeName
+              Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName
                   // CustomRoute(builder: (ctx) => OrdersScreen()),
                   );
             },

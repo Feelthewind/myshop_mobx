@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 
 import '../widgets/order_item.dart';
 
-class OrderScreen extends StatefulWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/orders';
 
   @override
-  _OrderScreenState createState() => _OrderScreenState();
+  _OrdersScreenState createState() => _OrdersScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<Orders>(context);

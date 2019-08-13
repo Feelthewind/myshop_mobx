@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
-import 'package:myshop_mobx/services/auth_service.dart';
-import 'package:myshop_mobx/services/order_service.dart';
-import 'package:myshop_mobx/services/product_service.dart';
+import 'package:myshop_mobx/services/auth.dart';
+import 'package:myshop_mobx/services/order.dart';
+import 'package:myshop_mobx/services/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../locator.dart';

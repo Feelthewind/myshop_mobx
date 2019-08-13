@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myshop_mobx/screens/edit_product_screen.dart';
+import 'package:myshop_mobx/screens/edit_product.dart';
 import 'package:myshop_mobx/stores/product.dart';
 
 class UserProductItem extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/locator.dart';
 import 'package:myshop_mobx/models/cart_model.dart';
 import 'package:myshop_mobx/models/order_model.dart';
-import 'package:myshop_mobx/services/order_service.dart';
+import 'package:myshop_mobx/services/order.dart';
 
 part 'orders.g.dart';
 
