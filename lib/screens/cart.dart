@@ -10,7 +10,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context);
+    final cartStore = Provider.of<Cart>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,14 +29,14 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount.toStringAsFixed(2)}',
+                      '\$${cartStore.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Theme.of(context).primaryTextTheme.title.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  OrderButton(cart: cart)
+                  OrderButton(cartStore: cartStore)
                 ],
               ),
             ),
@@ -44,13 +44,13 @@ class CartScreen extends StatelessWidget {
           SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemCount: cart.items.length,
+              itemCount: cartStore.items.length,
               itemBuilder: (ctx, i) => ci.CartItem(
-                cart.items.values.toList()[i].id,
-                cart.items.keys.toList()[i],
-                cart.items.values.toList()[i].price,
-                cart.items.values.toList()[i].quantity,
-                cart.items.values.toList()[i].title,
+                cartStore.items.values.toList()[i].id,
+                cartStore.items.keys.toList()[i],
+                cartStore.items.values.toList()[i].price,
+                cartStore.items.values.toList()[i].quantity,
+                cartStore.items.values.toList()[i].title,
               ),
             ),
           )
@@ -63,10 +63,10 @@ class CartScreen extends StatelessWidget {
 class OrderButton extends StatefulWidget {
   const OrderButton({
     Key key,
-    @required this.cart,
+    @required this.cartStore,
   }) : super(key: key);
 
-  final Cart cart;
+  final Cart cartStore;
 
   @override
   _OrderButtonState createState() => _OrderButtonState();
@@ -78,17 +78,17 @@ class _OrderButtonState extends State<OrderButton> {
   Widget build(BuildContext context) {
     return FlatButton(
       child: _isLoading ? CircularProgressIndicator() : Text('ORDER NOW'),
-      onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
+      onPressed: (widget.cartStore.totalAmount <= 0 || _isLoading)
           ? null
           : () async {
               setState(() {
                 _isLoading = true;
               });
               await Provider.of<Orders>(context).addOrder(
-                widget.cart.items.values.toList(),
-                widget.cart.totalAmount,
+                widget.cartStore.items.values.toList(),
+                widget.cartStore.totalAmount,
               );
-              widget.cart.clear();
+              widget.cartStore.clear();
               setState(() {
                 _isLoading = false;
               });

@@ -37,4 +37,26 @@ mixin _$Cart on _Cart, Store {
       _$itemsAtom.reportChanged();
     }, _$itemsAtom, name: '${_$itemsAtom.name}_set');
   }
+
+  final _$_CartActionController = ActionController(name: '_Cart');
+
+  @override
+  void addItem(String productId, double price, String title) {
+    final _$actionInfo = _$_CartActionController.startAction();
+    try {
+      return super.addItem(productId, price, title);
+    } finally {
+      _$_CartActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clear() {
+    final _$actionInfo = _$_CartActionController.startAction();
+    try {
+      return super.clear();
+    } finally {
+      _$_CartActionController.endAction(_$actionInfo);
+    }
+  }
 }

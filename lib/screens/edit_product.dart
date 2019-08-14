@@ -66,7 +66,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _updateImageUrl() {
-    print('listener called');
     if (!_imageUrlFocusNode.hasFocus) {
       setState(() {});
     }

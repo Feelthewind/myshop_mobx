@@ -16,6 +16,7 @@ import 'package:myshop_mobx/stores/products.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  // Provider.debugCheckInvalidValueType = null;
   setupLocator();
   runApp(MyApp());
 }
@@ -26,9 +27,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(builder: (_) => Auth()),
+        ChangeNotifierProvider.value(value: Auth()),
+        ProxyProvider<Auth, Cart>(
+          builder: (ctx, auth, previousCart) {
+            return Cart();
+          },
+        ),
         Provider(builder: (_) => Products()),
-        Provider(builder: (_) => Cart()),
         Provider(builder: (_) => Orders()),
       ],
       child: Observer(

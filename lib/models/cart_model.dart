@@ -21,4 +21,13 @@ class CartModel {
       price: parsedJson['price'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'quantity': quantity,
+      'price': price,
+    };
+  }
 }

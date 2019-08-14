@@ -21,6 +21,7 @@ abstract class _Cart with Store {
     return total;
   }
 
+  @action
   void addItem(String productId, double price, String title) {
     if (items.containsKey(productId)) {
       items.update(
@@ -45,6 +46,7 @@ abstract class _Cart with Store {
     }
   }
 
+  @action
   void clear() {
     items = ObservableMap();
   }

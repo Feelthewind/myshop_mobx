@@ -93,4 +93,16 @@ mixin _$Auth on _Auth, Store {
   Future<bool> tryAutoLogin() {
     return _$tryAutoLoginAsyncAction.run(() => super.tryAutoLogin());
   }
+
+  final _$_AuthActionController = ActionController(name: '_Auth');
+
+  @override
+  void _setStore(Map<String, dynamic> result) {
+    final _$actionInfo = _$_AuthActionController.startAction();
+    try {
+      return super._setStore(result);
+    } finally {
+      _$_AuthActionController.endAction(_$actionInfo);
+    }
+  }
 }

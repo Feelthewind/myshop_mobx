@@ -12,7 +12,7 @@ class AuthService {
     try {
       final response = await http.post(
         url,
-        body: json.encode(
+        body: jsonEncode(
           {
             'email': email,
             'password': password,
@@ -20,7 +20,7 @@ class AuthService {
           },
         ),
       );
-      final responseData = json.decode(response.body);
+      final responseData = jsonDecode(response.body);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }

@@ -17,8 +17,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   void initState() {
     super.initState();
-    final products = Provider.of<Products>(context, listen: false);
-    products.fetchProducts();
+    final productsStore = Provider.of<Products>(context, listen: false);
+    productsStore.fetchProducts();
   }
 
   @override
@@ -29,7 +29,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           Observer(
             builder: (ctx) {
-              final cart = Provider.of<Cart>(ctx);
+              final cart = Provider.of<Cart>(ctx, listen: false);
               return Badge(
                 child: IconButton(
                   icon: Icon(

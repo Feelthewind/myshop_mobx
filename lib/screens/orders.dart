@@ -16,7 +16,8 @@ class OrdersScreen extends StatefulWidget {
 class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<Orders>(context);
+    final ordersStore = Provider.of<Orders>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Orders'),
@@ -36,8 +37,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
           } else {
             return Observer(
               builder: (ctx) => ListView.builder(
-                itemCount: store.orders.length,
-                itemBuilder: (ctx, i) => OrderItem(store.orders[i]),
+                itemCount: ordersStore.orders.length,
+                itemBuilder: (ctx, i) => OrderItem(ordersStore.orders[i]),
               ),
             );
           }

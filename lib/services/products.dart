@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:myshop_mobx/stores/product.dart';
 
-class ProductService {
-  var url = 'https://flutter-update-396ab.firebaseio.com/products.json';
+class ProductsService {
+  var baseURL = 'https://flutter-update-396ab.firebaseio.com';
 
   String _authToken;
   String _userId;
 
-  void setTokenAndUserId(String token, String userId) {
+  void setAuthData(String token, String userId) {
     _authToken = token;
     _userId = userId;
   }
@@ -17,8 +17,7 @@ class ProductService {
   Future<List<Product>> fetch([bool filterByUser = false]) async {
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$_userId"' : '';
-    var url =
-        'https://flutter-update-396ab.firebaseio.com/products.json?auth=$_authToken&$filterString';
+    var url = '$baseURL/products.json?auth=$_authToken&$filterString';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -26,8 +25,7 @@ class ProductService {
       if (extractedData == null) {
         return [];
       }
-      url =
-          'https://flutter-update-396ab.firebaseio.com/userFavorites/$_userId.json?auth=$_authToken';
+      url = '$baseURL/userFavorites/$_userId.json?auth=$_authToken';
       final favoriteResponse = await http.get(url);
       final favoriteData = json.decode(favoriteResponse.body);
       extractedData.forEach((prodId, prodData) {
@@ -49,7 +47,7 @@ class ProductService {
 
   Future<void> toggleFavoriteStatus(String productId, bool isFavorite) async {
     final url =
-        'https://flutter-update-396ab.firebaseio.com/userFavorites/$_userId/$productId.json?auth=$_authToken';
+        '$baseURL/userFavorites/$_userId/$productId.json?auth=$_authToken';
     try {
       await http.put(
         url,
@@ -61,8 +59,7 @@ class ProductService {
   }
 
   Future<Map<String, dynamic>> add(Product product) async {
-    final url =
-        'https://flutter-update-396ab.firebaseio.com/products.json?auth=$_authToken';
+    final url = '$baseURL/products.json?auth=$_authToken';
     try {
       final response = await http.post(url,
           body: json.encode(
@@ -82,8 +79,7 @@ class ProductService {
   }
 
   Future<void> update(String id, Product newProduct) async {
-    final url =
-        'https://flutter-update-396ab.firebaseio.com/products/$id.json?auth=$_authToken';
+    final url = '$baseURL/products/$id.json?auth=$_authToken';
     await http.patch(url,
         body: json.encode({
           'title': newProduct.title,

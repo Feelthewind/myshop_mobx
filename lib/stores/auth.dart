@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/services/auth.dart';
-import 'package:myshop_mobx/services/order.dart';
-import 'package:myshop_mobx/services/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../locator.dart';
@@ -13,7 +12,7 @@ part 'auth.g.dart';
 
 class Auth = _Auth with _$Auth;
 
-abstract class _Auth with Store {
+abstract class _Auth with Store, ChangeNotifier {
   Timer _authTimer;
 
   @observable
@@ -42,7 +41,9 @@ abstract class _Auth with Store {
       final result =
           await AuthService().authenticate(email, password, 'signupNewUser');
       _setStore(result);
-      _setServices(token, userId);
+      setServices(token, userId);
+      _autoLogout();
+      notifyListeners();
       _saveUserDataToPreferences();
     } catch (error) {
       throw error;
@@ -55,7 +56,9 @@ abstract class _Auth with Store {
       final result =
           await AuthService().authenticate(email, password, 'verifyPassword');
       _setStore(result);
-      _setServices(token, userId);
+      setServices(token, userId);
+      _autoLogout();
+      notifyListeners();
       await _saveUserDataToPreferences();
     } catch (error) {
       throw error;
@@ -71,11 +74,13 @@ abstract class _Auth with Store {
       _authTimer.cancel();
       _authTimer = null;
     }
+    notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     // prefs.remove('userData');
     prefs.clear();
   }
 
+  @action
   void _setStore(Map<String, dynamic> result) {
     token = result['idToken'];
     userId = result['localId'];
@@ -83,18 +88,6 @@ abstract class _Auth with Store {
     expiryDate = DateTime.now().add(
       Duration(seconds: int.parse(result['expiresIn'])),
     );
-  }
-
-  void _saveUserDataToPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userData = json.encode(
-      {
-        'token': token,
-        'userId': userId,
-        'expiryDate': expiryDate.toIso8601String(),
-      },
-    );
-    prefs.setString('userData', userData);
   }
 
   @action
@@ -114,15 +107,29 @@ abstract class _Auth with Store {
     userId = extractedUserData['userId'];
     expiryDate = _expiryDate;
 
-    _setServices(token, userId);
-
+    setServices(token, userId);
+    notifyListeners();
+    _autoLogout();
     return true;
   }
 
-  void _setServices(String token, String userId) {
-    final products = locator<ProductService>();
-    final order = locator<OrderService>();
-    products.setTokenAndUserId(token, userId);
-    order.setTokenAndUserId(token, userId);
+  void _saveUserDataToPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userData = json.encode(
+      {
+        'token': token,
+        'userId': userId,
+        'expiryDate': expiryDate.toIso8601String(),
+      },
+    );
+    prefs.setString('userData', userData);
+  }
+
+  void _autoLogout() {
+    if (_authTimer != null) {
+      _authTimer.cancel();
+    }
+    final timeToExpiry = expiryDate.difference(DateTime.now()).inSeconds;
+    _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
 }

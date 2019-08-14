@@ -1,12 +1,14 @@
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/locator.dart';
-import 'package:myshop_mobx/services/product.dart';
+import 'package:myshop_mobx/services/products.dart';
 
 part 'product.g.dart';
 
 class Product = _Product with _$Product;
 
 abstract class _Product with Store {
+  final service = locator<ProductsService>();
+
   _Product({
     this.id,
     this.title,
@@ -15,8 +17,6 @@ abstract class _Product with Store {
     this.imageUrl,
     this.isFavorite = false,
   });
-
-  final ProductService api = locator<ProductService>();
 
   @observable
   String id;
@@ -41,30 +41,10 @@ abstract class _Product with Store {
     final oldStatus = isFavorite;
     try {
       isFavorite = !isFavorite;
-      await api.toggleFavoriteStatus(id, isFavorite);
+      await service.toggleFavoriteStatus(id, isFavorite);
     } catch (error) {
       isFavorite = oldStatus;
       throw error;
     }
   }
-
-  // _Product.fromJson(Map<String, dynamic> json) {
-  //   id = json['id'];
-  //   title = json['title'];
-  //   description = json['description'];
-  //   price = json['price'];
-  //   imageUrl = json['imageUrl'];
-  //   isFavorite = json['isFavorite'];
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['id'] = this.id;
-  //   data['title'] = this.title;
-  //   data['description'] = this.description;
-  //   data['price'] = this.price;
-  //   data['imageUrl'] = this.imageUrl;
-  //   data['isFavorite'] = this.isFavorite;
-  //   return data;
-  // }
 }

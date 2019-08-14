@@ -40,11 +40,11 @@ class _AuthCardState extends State<AuthCard> {
     }
     _formKey.currentState.save();
     try {
-      final auth = Provider.of<Auth>(context);
+      final authStore = Provider.of<Auth>(context, listen: false);
       if (_authMode == AuthMode.Login) {
-        await auth.login(_authData['email'], _authData['password']);
+        await authStore.login(_authData['email'], _authData['password']);
       } else {
-        await auth.signup(_authData['email'], _authData['password']);
+        await authStore.signup(_authData['email'], _authData['password']);
       }
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed';
@@ -135,15 +135,16 @@ class _AuthCardState extends State<AuthCard> {
                     _authData['password'] = value;
                   },
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Confirm Password'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match!';
-                    }
-                  },
-                ),
+                if (_authMode == AuthMode.Signup)
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Confirm Password'),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match!';
+                      }
+                    },
+                  ),
                 RaisedButton(
                   child:
                       Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),

@@ -32,7 +32,6 @@ class ProductItem extends StatelessWidget {
           backgroundColor: Colors.black87,
           leading: Observer(
             builder: (_) {
-              print('iconbutton observer');
               return IconButton(
                 icon: Icon(
                   product.isFavorite ? Icons.favorite : Icons.favorite_border,

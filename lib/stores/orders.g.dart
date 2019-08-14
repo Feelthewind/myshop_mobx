@@ -15,4 +15,11 @@ mixin _$Orders on _Orders, Store {
   Future<void> fetchAndSetOrders() {
     return _$fetchAndSetOrdersAsyncAction.run(() => super.fetchAndSetOrders());
   }
+
+  final _$addOrderAsyncAction = AsyncAction('addOrder');
+
+  @override
+  Future<void> addOrder(List<CartModel> cartProducts, double total) {
+    return _$addOrderAsyncAction.run(() => super.addOrder(cartProducts, total));
+  }
 }

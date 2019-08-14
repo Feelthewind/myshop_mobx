@@ -10,7 +10,6 @@ class ProductsGrid extends StatelessWidget {
     final list = Provider.of<Products>(context);
 
     return Observer(builder: (_) {
-      print('gridview builder');
       if (!list.hasResults) {
         return Center(child: CircularProgressIndicator());
       }

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:myshop_mobx/models/cart_model.dart';
 
-class OrderService {
+class OrdersService {
   String _authToken;
   String _userId;
 
-  void setTokenAndUserId(String token, String userId) {
+  void setAuthData(String token, String userId) {
     _authToken = token;
     _userId = userId;
   }
@@ -28,14 +28,7 @@ class OrderService {
         body: json.encode({
           'amount': total,
           'dateTime': timestamp.toIso8601String(),
-          'products': cartProducts
-              .map((cp) => {
-                    'id': cp.id,
-                    'title': cp.title,
-                    'quantity': cp.quantity,
-                    'price': cp.price,
-                  })
-              .toList(),
+          'products': cartProducts.map((cp) => cp.toJson()).toList(),
         }));
     return jsonDecode(response.body);
   }

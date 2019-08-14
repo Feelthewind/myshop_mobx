@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:myshop_mobx/locator.dart';
-import 'package:myshop_mobx/services/product.dart';
+import 'package:myshop_mobx/services/products.dart';
 import 'package:myshop_mobx/stores/product.dart';
 
 part 'products.g.dart';
@@ -8,7 +8,7 @@ part 'products.g.dart';
 class Products = _Products with _$Products;
 
 abstract class _Products with Store {
-  final productService = locator<ProductService>();
+  final service = locator<ProductsService>();
   // @observable
   // ObservableList<Product> products = ObservableList<Product>.of([
   //   Product(
@@ -42,7 +42,7 @@ abstract class _Products with Store {
   @action
   Future<void> fetchProducts([bool filterByUser = false]) async {
     try {
-      final future = productService.fetch(filterByUser);
+      final future = service.fetch(filterByUser);
       fetchProductsFuture = ObservableFuture(future);
 
       final result = await future;
@@ -60,7 +60,7 @@ abstract class _Products with Store {
   @action
   Future<void> addProduct(Product product) async {
     try {
-      final result = await productService.add(product);
+      final result = await service.add(product);
       final newProduct = Product(
         id: result['name'],
         title: product.title,
@@ -78,7 +78,7 @@ abstract class _Products with Store {
   Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = products.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
-      await productService.update(id, newProduct);
+      await service.update(id, newProduct);
       products[prodIndex] = newProduct;
     }
   }
